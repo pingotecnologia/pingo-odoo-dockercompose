@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   db:
-    image: postgres:16
+    image: postgres:15
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
@@ -11,7 +11,7 @@ services:
         - ./odoo-db:/var/lib/postgresql/data
 
   web:
-    image: odoo:17
+    image: odoo:16
     depends_on:
       - db
     ports:
