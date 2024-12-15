@@ -36,7 +36,13 @@ Certifique-se de que os seguintes arquivos e pastas estejam configurados correta
 - **`config/odoo_pg_pass`**: Contém a senha para o banco de dados PostgreSQL. (padrão é `odoo`)
 - **`config/odoo.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Já possuí a configuração básica.
 
-### 3. Executar o Docker Compose
+### 3. Fornecer permissões ao usuário Odoo para as pastas
+```bash
+chown -R 101:101 odoo-data/ up -d
+chown -R 101:101 addons/ up -d
+```
+
+### 4. Executar o Docker Compose
 
 Inicie o ambiente com o comando:
 
@@ -44,14 +50,14 @@ Inicie o ambiente com o comando:
 docker-compose up -d
 ```
 
-### 4. Acessar o Odoo
+### 5. Acessar o Odoo
 
 Após a inicialização bem-sucedida, o Odoo estará acessível em:
 
 - **Interface Web**: [http://localhost:8069](http://localhost:8069)
 - **Longpolling (para chat e notificações)**: Porta `8072`
 
-### 5. Parar o Ambiente
+### 6. Parar o Ambiente
 
 Para parar os contêineres, execute:
 
