@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    restart: always
+    volumes:
+        - ./odoo-db:/var/lib/postgresql/data
+
+  web:
+    image: odoo:17
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "8072:8072"
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+      - ./odoo-data:/var/lib/odoo
+    restart: always
+    secrets:
+      - postgresql_password
+
+secrets:
+  postgresql_password:
+    file: ./config/odoo_pg_pass
