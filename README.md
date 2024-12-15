@@ -34,12 +34,15 @@ cd pingo-odoo-dockercompose
 Certifique-se de que os seguintes arquivos e pastas estejam configurados corretamente:
 
 - **`config/odoo_pg_pass`**: Contém a senha para o banco de dados PostgreSQL. (padrão é `odoo`)
-- **`config/odoo.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Já possuí a configuração básica.
+- **`config/odoo.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Já possui a configuração básica.
 
 ### 3. Fornecer permissões ao usuário Odoo para as pastas
+
+No host, ajuste as permissões para garantir que o usuário do contêiner Odoo tenha acesso:
+
 ```bash
-chown -R 101:101 odoo-data/ up -d
-chown -R 101:101 addons/ up -d
+sudo chown -R 101:101 odoo-data/
+sudo chown -R 101:101 addons/
 ```
 
 ### 4. Executar o Docker Compose
@@ -64,6 +67,33 @@ Para parar os contêineres, execute:
 ```bash
 docker-compose down
 ```
+
+## Alterar a Versão do Odoo
+
+Para alterar a versão do Odoo utilizada no contêiner:
+
+1. **Editar o arquivo `docker-compose.yml`**:
+   Localize a linha abaixo:
+   ```yaml
+   image: odoo:17
+   ```
+   Substitua `17` pela versão desejada, como `16` ou outra versão suportada:
+   ```yaml
+   image: odoo:16
+   ```
+
+2. **Recriar os Contêineres**:
+   Após salvar o arquivo, execute os comandos abaixo para atualizar o ambiente:
+   ```bash
+   docker-compose down
+   docker-compose pull web
+   docker-compose up -d
+   ```
+
+   Isso garantirá que a nova imagem da versão escolhida seja baixada e utilizada.
+
+3. **Verificar a Compatibilidade**:
+   Certifique-se de que os módulos e dados existentes sejam compatíveis com a nova versão do Odoo antes de realizar a alteração.
 
 ## Detalhes do Docker Compose
 
@@ -105,3 +135,4 @@ Se você encontrar problemas ou tiver dúvidas, entre em contato com a equipe da
 ---
 
 **Pingo Tecnologia - Gota de Tecnologia, Mar de Mudanças!**
+
