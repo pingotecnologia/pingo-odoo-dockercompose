@@ -1,6 +1,6 @@
 # pingo-odoo-dockercompose
 
-Este repositório fornece um ambiente Docker Compose para a instalação do Odoo 17, criado pela **Pingo Tecnologia**. O ambiente está configurado para facilitar a implantação e manutenção do Odoo em um contêiner Docker, com suporte a um banco de dados PostgreSQL.
+Este repositório fornece um ambiente Docker Compose para a instalação do Odoo 18, criado pela **Pingo Tecnologia**. O ambiente está configurado para facilitar a implantação e manutenção do Odoo em um contêiner Docker, com suporte a um banco de dados PostgreSQL.
 
 ## Estrutura do Repositório
 
@@ -41,8 +41,9 @@ Certifique-se de que os seguintes arquivos e pastas estejam configurados correta
 No host, ajuste as permissões para garantir que o usuário do contêiner Odoo tenha acesso:
 
 ```bash
-sudo chown -R 101:101 odoo-data/
-sudo chown -R 101:101 addons/
+sudo chown -R 100:101 odoo-data/
+sudo chown -R 100:101 addons/
+sudo chown -R 100:101 config/
 ```
 
 ### 4. Executar o Docker Compose

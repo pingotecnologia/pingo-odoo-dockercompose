@@ -61,12 +61,8 @@ odoo-db/
 
 # Ignore everything in odoo-data but allow specific .gitkeep files
 odoo-data/*
-!odoo-data/
-!odoo-data/addons/
 !odoo-data/addons/.gitkeep
-!odoo-data/filestore/
 !odoo-data/filestore/.gitkeep
-!odoo-data/sessions/
 !odoo-data/sessions/.gitkeep
 
 # Ignore everything in addons except .gitkeep
