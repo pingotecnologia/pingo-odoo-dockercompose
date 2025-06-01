@@ -44,7 +44,7 @@ services:
       - ./nginx/certbot/conf:/etc/letsencrypt
     entrypoint: >
       sh -c "
-        certbot certonly --webroot --webroot-path=/var/www/certbot --email your@email.com --agree-tos --no-eff-email -d sistema.catequese.plus
+        certbot certonly --webroot --webroot-path=/var/www/certbot --email your@email.com --agree-tos --no-eff-email -d yourdomain.com.br
       "
     depends_on:
       - nginx
