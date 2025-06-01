@@ -68,26 +68,36 @@ docker compose up nginx -d
 docker compose up certbot
 ```
 
-### 5. Agora, você pode criar o Odoo a partir do Docker Compose:
+### 6. Agora, você pode criar o Odoo a partir do Docker Compose:
 
 ```bash
 docker compose up -d odoo
 ```
 
-### 5. Acessar o Odoo
+### 7. Acessar o Odoo
 
 Após a inicialização bem-sucedida, o Odoo estará acessível em:
 
 - **Interface Web**: [https://yourdomain.com.br](https://yourdomain.com.br)
 - **Longpolling (para chat e notificações)**: Porta `8072`
 
-### 6. Parar o Ambiente
+### 8. Parar o Ambiente
 
 Para parar os contêineres, execute:
 
 ```bash
 docker compose down
 ```
+
+## Renovação Automática do Certificado TLS
+
+Esta implementação é preparada para a rotação automática de certificados TLS. Para isso, você pode usar o `crontab -e` do Linux com este comando:
+
+```shell
+0 3 1 * * /bin/bash -c '/mnt/odoo/nginx/renew-certs.sh >> /mnt/odoo/nginx/logs/renew-$(date +\%F).log 2>&1'
+```
+
+> Substitua `/mnt/odoo` pela sua pasta raiz deste repositório. Isso vai usar o crontab do Linux para rotacionar o certificado TLS mensalmente todo dia 1, às 3h.
 
 ## Alterar a Versão do Odoo
 
