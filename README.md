@@ -16,7 +16,7 @@ pingo-odoo-dockercompose/
 │   └── sessions          # Dados de sessões do Odoo
 ├── nginx/                # Armazena o nginx.conf e os arquivos de certificado gerados pelo cerbot
 │   ├── nginx.conf/       # Arquivo de configuração do Nginx
-│   ├── certbot/          # Arquivos de certificados ssl do certbot
+│   ├── certbot/          # Arquivos de certificados TLS do certbot
 │      ├── conf/          # Pasta de arquivos de configuração do certbot
 │      ├── www/           # Pasta usada para validação de emissão/renovação de certificados
 │   └── renew_certs.sh    # Script de rotação automática de certificados
@@ -43,7 +43,7 @@ Certifique-se de que os seguintes arquivos e pastas estejam configurados correta
 - **`config/odoo.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Já possui a configuração básica.
 - **`nginx/nginx.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Substitua `yourdomain.com.br` pelo seu domínio.
 - **`docker-compose.yml`**: Arquivo de configuração do Docker Compose. Personalize conforme as suas necessidades. Substitua `yourdomain.com.br` pelo seu domínio.
-- **`nginx/renew_certs.sh`**: Script de rotação automática de certificados SSL. Personalize conforme as suas necessidades. Substitua `/mnt/odoo` pela pasta raiz deste repositório.
+- **`nginx/renew_certs.sh`**: Script de rotação automática de certificados TLS. Personalize conforme as suas necessidades. Substitua `/mnt/odoo` pela pasta raiz deste repositório.
 
 ### 3. Fornecer permissões ao usuário Odoo para as pastas
 
@@ -54,13 +54,13 @@ sudo chown -R 101:101 odoo-data/
 sudo chown -R 101:101 addons/
 ```
 
-### 4. Executar o Docker Compose para primeiro subir o Nginx, que será usado como base para a emissão do primeiro certificado SSL:
+### 4. Executar o Docker Compose para primeiro subir o Nginx, que será usado como base para a emissão do primeiro certificado TLS:
 
 ```bash
 docker compose up nginx -d
 ```
 
-### 5. Executar o Docker Compose para emitir o certificado SSL:
+### 5. Executar o Docker Compose para emitir o certificado TLS:
 
 > Antes de executar este comando, você deve encaminhar as requisições do seu domínio para o IP ou DNS do servidor que este IP está sendo implementado.
 
@@ -86,7 +86,7 @@ Após a inicialização bem-sucedida, o Odoo estará acessível em:
 Para parar os contêineres, execute:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## Alterar a Versão do Odoo
@@ -106,9 +106,9 @@ Para alterar a versão do Odoo utilizada no contêiner:
 2. **Recriar os Contêineres**:
    Após salvar o arquivo, execute os comandos abaixo para atualizar o ambiente:
    ```bash
-   docker-compose down
-   docker-compose pull web
-   docker-compose up -d
+   docker compose down
+   docker compose pull odoo
+   docker compose up -d
    ```
 
    Isso garantirá que a nova imagem da versão escolhida seja baixada e utilizada.
