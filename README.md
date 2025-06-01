@@ -14,6 +14,12 @@ pingo-odoo-dockercompose/
 │   ├── addons/           # Códigos-fonte de módulos instalados
 │   ├── filestore/        # Armazenamento de arquivos do Odoo
 │   └── sessions          # Dados de sessões do Odoo
+├── nginx/                # Armazena o nginx.conf e os arquivos de certificado gerados pelo cerbot
+│   ├── nginx.conf/       # Arquivo de configuração do Nginx
+│   ├── certbot/          # Arquivos de certificados ssl do certbot
+│      ├── conf/          # Pasta de arquivos de configuração do certbot
+│      ├── www/           # Pasta usada para validação de emissão/renovação de certificados
+│   └── renew_certs.sh    # Script de rotação automática de certificados
 ├── docker-compose.yml    # Arquivo principal do Docker Compose
 └── README.md             # Documentação do repositório
 ```
@@ -35,6 +41,9 @@ Certifique-se de que os seguintes arquivos e pastas estejam configurados correta
 
 - **`config/odoo_pg_pass`**: Contém a senha para o banco de dados PostgreSQL. (padrão é `odoo`)
 - **`config/odoo.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Já possui a configuração básica.
+- **`nginx/nginx.conf`**: Arquivo de configuração do Odoo. Personalize conforme as suas necessidades. Substitua `yourdomain.com.br` pelo seu domínio.
+- **`docker-compose.yml`**: Arquivo de configuração do Docker Compose. Personalize conforme as suas necessidades. Substitua `yourdomain.com.br` pelo seu domínio.
+- **`nginx/renew_certs.sh`**: Script de rotação automática de certificados SSL. Personalize conforme as suas necessidades. Substitua `/mnt/odoo` pela pasta raiz deste repositório.
 
 ### 3. Fornecer permissões ao usuário Odoo para as pastas
 
@@ -45,19 +54,31 @@ sudo chown -R 101:101 odoo-data/
 sudo chown -R 101:101 addons/
 ```
 
-### 4. Executar o Docker Compose
-
-Inicie o ambiente com o comando:
+### 4. Executar o Docker Compose para primeiro subir o Nginx, que será usado como base para a emissão do primeiro certificado SSL:
 
 ```bash
-docker-compose up -d
+docker compose up nginx -d
+```
+
+### 5. Executar o Docker Compose para emitir o certificado SSL:
+
+> Antes de executar este comando, você deve encaminhar as requisições do seu domínio para o IP ou DNS do servidor que este IP está sendo implementado.
+
+```bash
+docker compose up certbot
+```
+
+### 5. Agora, você pode criar o Odoo a partir do Docker Compose:
+
+```bash
+docker compose up -d odoo
 ```
 
 ### 5. Acessar o Odoo
 
 Após a inicialização bem-sucedida, o Odoo estará acessível em:
 
-- **Interface Web**: [http://localhost:8069](http://localhost:8069)
+- **Interface Web**: [https://yourdomain.com.br](https://yourdomain.com.br)
 - **Longpolling (para chat e notificações)**: Porta `8072`
 
 ### 6. Parar o Ambiente
