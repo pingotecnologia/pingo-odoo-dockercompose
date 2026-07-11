@@ -1,6 +1,6 @@
 # pingo-odoo-dockercompose
 
-Este repositório fornece um ambiente Docker Compose para a instalação do Odoo 18, criado pela **Pingo Tecnologia**. O ambiente está configurado para facilitar a implantação e manutenção do Odoo em um contêiner Docker, com suporte a um banco de dados PostgreSQL.
+Este repositório fornece um ambiente Docker Compose para a instalação do Odoo 19, criado pela **Pingo Tecnologia**. O ambiente está configurado para facilitar a implantação e manutenção do Odoo em um contêiner Docker, com suporte a um banco de dados PostgreSQL.
 
 ## Estrutura do Repositório
 
@@ -69,45 +69,18 @@ Para parar os contêineres, execute:
 docker-compose down
 ```
 
-## Alterar a Versão do Odoo
-
-Para alterar a versão do Odoo utilizada no contêiner:
-
-1. **Editar o arquivo `docker-compose.yml`**:
-   Localize a linha abaixo:
-   ```yaml
-   image: odoo:17
-   ```
-   Substitua `17` pela versão desejada, como `16` ou outra versão suportada:
-   ```yaml
-   image: odoo:16
-   ```
-
-2. **Recriar os Contêineres**:
-   Após salvar o arquivo, execute os comandos abaixo para atualizar o ambiente:
-   ```bash
-   docker-compose down
-   docker-compose pull web
-   docker-compose up -d
-   ```
-
-   Isso garantirá que a nova imagem da versão escolhida seja baixada e utilizada.
-
-3. **Verificar a Compatibilidade**:
-   Certifique-se de que os módulos e dados existentes sejam compatíveis com a nova versão do Odoo antes de realizar a alteração.
-
 ## Detalhes do Docker Compose
 
 ### Serviço `db` (PostgreSQL)
-- **Imagem**: `postgres:16`
+- **Imagem**: `postgres:17`
 - **Configurações**:
   - Usuário: `odoo`
   - Senha: Definida no arquivo `config/odoo_pg_pass`
   - Banco de Dados: `postgres`
 - **Volume Persistente**: `./odoo-db:/var/lib/postgresql/data`
 
-### Serviço `web` (Odoo 17)
-- **Imagem**: `odoo:17`
+### Serviço `web` (Odoo 19)
+- **Imagem**: `odoo:19`
 - **Configurações**:
   - Portas: `8069` (web) e `8072` (longpolling)
   - Volumes Persistentes:
@@ -136,4 +109,3 @@ Se você encontrar problemas ou tiver dúvidas, entre em contato com a equipe da
 ---
 
 **Pingo Tecnologia - Gota de Tecnologia, Mar de Mudanças!**
-
