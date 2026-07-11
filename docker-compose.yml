@@ -10,7 +10,7 @@ services:
         - ./odoo-db:/var/lib/postgresql/data
 
   odoo:
-    image: odoo:17
+    image: odoo:19
     depends_on:
       - db
     expose:
